@@ -2,7 +2,7 @@
 <launch>
   <arg name="paused" default="false"/>
   <arg name="use_sim_time" default="true"/>
-  <arg name="gui" default="true"/>
+  <arg name="gui" default="false"/>
   <arg name="world_name" default="$(find camera_lidar_gazebo_sim)/worlds/example.world"/>
 
   <!-- Start gazebo and load the world -->
@@ -19,7 +19,7 @@
 
   <param name="target" command="$(find xacro)/xacro  '$(find camera_lidar_gazebo_sim)/models/checkerboard_5_8_0_2/checkerboard.sdf' " />
   <node name="spawn_target_model" pkg="gazebo_ros" type="spawn_model" args="-sdf -param target -model target 
-    -x 5 -y 0 -z 3 -R 0.0 -P 1.57 -Y 0" respawn="false" output="screen" />
+    -x 5 -y 0 -z 2.5 -R 0.0 -P 1.57 -Y 0" respawn="false" output="screen" />
 
   <param name="stereo_camera" command="$(find xacro)/xacro '$(find camera_lidar_gazebo_sim)/models/bumblebee_xb3/model.sdf' " />
   <node name="spawn_sensor1_model" pkg="gazebo_ros" type="spawn_model" args="-sdf -param stereo_camera -model stereo_camera

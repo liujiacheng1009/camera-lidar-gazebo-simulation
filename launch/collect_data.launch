@@ -1,0 +1,9 @@
+<launch>
+
+    <node pkg="camera_lidar_gazebo_sim" type="sim_data_collector_node" name="sim_data_collector_node" output="screen">
+        <!-- <remap from="/lidar_points" to="/velodyne_points"/>
+        <remap from="/left_camera_image" to="/stereo_camera/left/image_rect_color"/>
+        <remap from="/right_camera_image" to="/stereo_camera/right/image_rect_color"/> -->
+    </node>
+
+</launch>
