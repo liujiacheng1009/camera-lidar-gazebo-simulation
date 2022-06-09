@@ -2,10 +2,12 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="hdl32">
   <xacro:arg name="xyz" default="0 0 1.5" />
   <xacro:arg name="rpy" default="0 0 0" />
+  <xacro:arg name="lasers" default="32"/>
+  <xacro:property name="lasers" value="$(arg lasers)" />
   <!-- Base Footprint -->
   <link name="base_link" />
   <xacro:include filename="$(find camera_lidar_gazebo_sim)/models/velodyne_HDL32/HDL-32E.urdf.xacro"/>
-  <xacro:HDL-32E parent="base_link" name="velodyne" topic="/velodyne_points" hz="10" >
+  <xacro:HDL-32E parent="base_link" name="velodyne" topic="/velodyne_points" hz="10" lasers="${lasers}"  >
     <origin xyz="$(arg xyz)" rpy="$(arg rpy)" />
   </xacro:HDL-32E> 
   <gazebo reference="base_link">
