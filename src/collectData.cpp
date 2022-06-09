@@ -43,7 +43,7 @@ void lidar_callback(const sensor_msgs::PointCloud2ConstPtr&  cloud_msg)
     std::cout<<"got lidar 0..."<<std::endl;
     if(!lidar_flag)
     {
-        pcl::PointCloud<pcl::PointXYZI> cloud;
+        pcl::PointCloud<pcl::PointXYZ> cloud;
         pcl::fromROSMsg(*cloud_msg, cloud);
         pcl::io::savePCDFileASCII("/home/jc/Documents/catkin_ws2/src/camera-lidar-gazebo-simulization/test_pcd.pcd", cloud);
         lidar_flag = true;
