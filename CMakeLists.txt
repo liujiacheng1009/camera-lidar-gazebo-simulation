@@ -9,7 +9,6 @@ project(camera_lidar_gazebo_sim)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
     cmake_modules
-    OpenCV
     image_transport
     roscpp
     cv_bridge
