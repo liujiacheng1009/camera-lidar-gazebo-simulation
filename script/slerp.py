@@ -104,17 +104,17 @@ def slerp(q1, q2, t, tm):
     qs = (np.sin(phi * (1 - t / tm)) / np.sin(phi)) * q1 + (np.sin(phi * (t / tm)) / np.sin(phi)) * q2
     return qs
 
-# board 4, 0.8,1.6,0.2,1.6,0
-# board 4, -0.8,1.6,-0.2,1.6,0
+# board 4, 0.8,1.6,0.2,1.6,0   -x 3 -y 0 -z 2.5 -R 0.2 -P 1.57 -Y 0
+# board 4, -0.8,1.6,-0.2,1.6,0 -x 6 -y -1 -z 3.5 -R -0.2 -P 1.57 -Y 0
 
-point = np.array([5, 0 , 1.5])
-euler_angles = np.array([0.0,1.57, 0])
+point = np.array([3, 0 , 2.5])
+euler_angles = np.array([0.2,1.57,0])
 A = Euler2A(euler_angles[0], euler_angles[1], euler_angles[2])
 p, phi = AxisAngle(A)
 q = AxisAngle2Q(p, phi)
 
-point2 = np.array([5, -1,1.5])
-euler_angles2 = np.array([3.1,1.4,3])
+point2 = np.array([6,-1,3.5])
+euler_angles2 = np.array([-0.2,1.57,0])
 A2 = Euler2A(euler_angles2[0], euler_angles2[1], euler_angles2[2])
 p2, phi2 = AxisAngle(A2)
 q2 = AxisAngle2Q(p2, phi2)
@@ -127,3 +127,13 @@ for i in range(N):
     phi, theta, psi = A2Euler(A_s)
     c = (1 - i / (N-1)) * point + (i / (N-1)) * point2
     print(phi, theta, psi,c)
+
+
+# 0.2 1.57 0 3 0 2.5 
+# 0.136 1.57 0 3.429 -0.143 2.643
+# 0.079 1.57 0 3.857 -0.286 2.786
+# 0.026 1.57 0 4.286 -0.429 2.929
+# -0.026 1.57 0 4.714 -0.571 3.071
+# -0.079 1.57 0 5.143 -0.714 3.214
+# -0.136 1.57 0 5.571 -0.857 3.357
+# -0.2 1.57 0 6 -1 3.5 

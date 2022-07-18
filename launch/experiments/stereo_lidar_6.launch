@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<launch>
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="false"/>
+  <arg name="world_name" default="$(find camera_lidar_gazebo_sim)/worlds/example.world"/>
+
+  <!-- Start gazebo and load the world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch" >
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="gui" value="$(arg gui)"/>
+    <arg name="world_name" value="$(arg world_name)"/>
+  </include>
+
+
+
+  <!-- Spawn the example robot -->
+
+  <param name="target" command="$(find xacro)/xacro  '$(find camera_lidar_gazebo_sim)/models/checkerboard_5_8_0_2/checkerboard.sdf' " />
+  <node name="spawn_target_model" pkg="gazebo_ros" type="spawn_model" args="-sdf -param target -model target 
+    -x 5.143 -y -0.714 -z 3.214 -R -0.079 -P 1.57 -Y 0" respawn="false" output="screen" />
+ 
+  <param name="stereo_camera" command="$(find xacro)/xacro '$(find camera_lidar_gazebo_sim)/models/bumblebee_xb3/model.sdf' " />
+  <node name="spawn_sensor1_model" pkg="gazebo_ros" type="spawn_model" args="-sdf -param stereo_camera -model stereo_camera
+  -x 0 -y 0 -z 2.8 -R 0 -P -0 -Y -0" respawn="false" output="screen" /> 
+
+  <param name="lidar" command="$(find xacro)/xacro '$(find camera_lidar_gazebo_sim)/models/velodyne_HDL32/model.sdf' " />
+  <node name="spawn_sensor2_model" pkg="gazebo_ros" type="spawn_model" args="-sdf -param lidar -model lidar
+  -x -0.3 -y 0.2 -z 3.2 -R 0 -P -0 -Y -0" respawn="false" output="screen" /> 
+
+  <!-- <param name="lidar" command="$(find xacro)/xacro  '$(find camera_lidar_gazebo_sim)/models/velodyne_HDL32/HDL-32E_spawn.urdf.xacro' xyz:='-0.3 0.2 2.1' rpy:='0 0 0' lasers:='64' " />
+  <node name="spawn_lidar_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param lidar -model lidar" respawn="false" output="screen"/>
+   -->
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+    <param name="publish_frequency" type="double" value="30.0" />
+  </node>
+
+  <!-- RViz -->
+  <!-- <arg name="rviz" default="true"/>
+  <node if="$(arg rviz)" pkg="rviz" type="rviz" name="$(anon rviz)" respawn="false" output="screen" args="-d $(find velodyne_description)/rviz/example.rviz" /> -->
+
+</launch>
