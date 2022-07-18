@@ -27,6 +27,8 @@ static bool lidar_flag = false;
 static bool left_camera_flag = false;
 static bool right_camera_flag = false;
 
+std::string data_path = "/home/jc/Documents/catkin_ws/src/camera-lidar-gazebo-simulization";
+
 void check_for_exit()
 {
     if(lidar_flag&& left_camera_flag && right_camera_flag)
@@ -45,7 +47,7 @@ void lidar_callback(const sensor_msgs::PointCloud2ConstPtr&  cloud_msg)
     {
         pcl::PointCloud<pcl::PointXYZ> cloud;
         pcl::fromROSMsg(*cloud_msg, cloud);
-        pcl::io::savePCDFileASCII("/home/jc/Documents/catkin_ws2/src/camera-lidar-gazebo-simulization/test_pcd.pcd", cloud);
+        pcl::io::savePCDFileASCII(data_path+"/test_pcd.pcd", cloud);
         lidar_flag = true;
     }
     m_img_buf.unlock();
@@ -59,7 +61,7 @@ void left_camera_callback(const sensor_msgs::ImageConstPtr& msg)
     if(!left_camera_flag)
     {
         cv::Mat img = cv_bridge::toCvShare(msg, "bgr8")->image;
-        cv::imwrite("/home/jc/Documents/catkin_ws2/src/camera-lidar-gazebo-simulization/left_image.png", img);
+        cv::imwrite(data_path+"/left_image.png", img);
         left_camera_flag = true;
     }
     m_img_buf.unlock();
@@ -73,7 +75,7 @@ void right_camera_callback(const sensor_msgs::ImageConstPtr& msg)
     if(!right_camera_flag)
     {
         cv::Mat img = cv_bridge::toCvShare(msg, "bgr8")->image;
-        cv::imwrite("/home/jc/Documents/catkin_ws2/src/camera-lidar-gazebo-simulization/right_image.png", img);
+        cv::imwrite(data_path+"/right_image.png", img);
         right_camera_flag = true;
     }
     m_img_buf.unlock();
